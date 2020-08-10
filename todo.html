@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <title>ToDo-App</title>
+  </head>
+  <body>
+    <!--Nav bar starts-->
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand">to-do App</a>
+        <form class="form-inline">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+        </form>
+      </nav>
+    <!--Nav bar ends-->
+               <br>
+               <center><label for="exampleFormControlTextarea1">Add new Task</label></center>
+               <!--Add task starts here-->
+               <div class="container text-center">
+                <div class="row">
+                    <div class="form-group col-lg-8">
+                        
+                        <textarea id="taskText" class="form-control" id="exampleFormControlTextarea1" rows="3" cols='8'></textarea>
+                      </div>
+                     
+                      
+                          <div class="col-lg-3 text-left ">
+                      <button id="addTaskBtn" class="btn btn-outline-dark" type="submit" onclick="addTaskFun()">Add</button>
+                          
+                         
+                      </div>
+                </div>
+               </div>
+               <!--Add task ends here-->
+               <br>
+    <!--Tasks starts here-->
+       <div class="container text-center">
+           <div id="taskCard" class="row " style="text-align: center;" >
+               <!-- 
+
+               <div class="col-sm-6 col-md-6 col-lg-4">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                      <h5 class="card-title">Card title</h5>
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                      <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                  </div>
+               </div> 
+                
+                -->
+           </div>
+       </div>
+       <!--Tasks ends here-->
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+    <!-- FontAwesome script-->
+    <script src="https://kit.fontawesome.com/ae1bf1dcdb.js" crossorigin="anonymous"></script>
+  </body>
+</html>
+<script>
+var taskLib =  []
+function addTaskFun(){
+    var taskText = document.getElementById('taskText')
+    // alert(taskText.value)
+    taskLib.push(taskText.value);
+    // alert('Added')
+    alert(`You Added:- ${taskText.value}`)
+    taskText.value="";
+    removeChildNodes()
+    display()
+}
+function display(){
+    for(let i=0;i<taskLib.length;i++){
+    //document.write(ls[i]);
+    beautyfy(taskLib[i],i)
+}
+}
+
+// var ls = ["apple","ball","cat"]
+// for(let i=0;i<ls.length;i++){
+// //document.write(ls[i]);
+// beautyfy(ls[i],i)
+// }
+
+function beautyfy(val,i=none){
+var node = document.createElement('div')
+node.innerHTML = `<div class="col-sm-6 mx-5 col-md-6 col-lg-4" id="${val}">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                      <h5 class="card-title">Task to be Done</h5>
+                      <p class="card-text">${val}</p>
+                      <button class="btn btn-primary" onclick="deleteFun(${i})">Delete</button>
+                    </div>
+                  </div>
+               </div>`
+//node.id="val"
+document.getElementById('taskCard').appendChild(node)
+}
+
+function removeChildNodes(){
+    // Get the <ul> element with id="myList"
+let list = document.getElementById("taskCard");
+
+// As long as <ul> has a child node, remove it
+while (list.hasChildNodes()) {  
+  list.removeChild(list.firstChild);
+}
+}
+
+function deleteFun(dv){
+    // deleting node from html document
+    var element = document. getElementById(taskLib[dv]);
+    element. parentNode. removeChild(element);
+    // alert(taskLib[dv])
+    // deleting task from the taskLib
+    for(let i=0;i<taskLib.length;i++){
+        if(taskLib[i]==taskLib[dv])
+        taskLib.remove(taskLib[i])
+    }
+    alert(taskLib)
+    
+}
+ 
+</script>
